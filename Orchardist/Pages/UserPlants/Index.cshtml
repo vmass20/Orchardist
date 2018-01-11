@@ -1,0 +1,84 @@
+@page
+@model Orchardist.Pages.UserPlants.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPlantList[0].FruitVariety)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPlantList[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPlantList[0].Origin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPlantList[0].YearDeveloped)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPlantList[0].Comments)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPlantList[0].Use)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPlantList[0].Parentage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPlantList[0].TreeCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPlantList[0].DatePlanted)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.UserPlantList) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FruitVariety)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <th>
+                @Html.DisplayFor(modelItem => item.Origin)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.YearDeveloped)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Comments)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Use)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Parentage)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.TreeCount)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.DatePlanted)
+            </th>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

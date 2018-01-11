@@ -1,0 +1,130 @@
+﻿@page
+@model Orchardist.Pages.GlobalPlants.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<form asp-page="/GlobalPlants/Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
+<form>
+    <p>
+        <select asp-for="FruitVariety" asp-items="Model.PlantVariety">
+            <option value="">All</option>
+        </select>
+        Title: <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead style="background-color:forestgreen">
+
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.GlobalPlantList[0].FruitVariety)
+            </th>
+            <th>
+                <a asp-page="/GlobalPlants/Index" asp-route-sortOrder="@Model.NameSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.GlobalPlantList[0].Name)
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GlobalPlantList[0].Origin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GlobalPlantList[0].YearDeveloped)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GlobalPlantList[0].Use)
+            </th>
+            <th>
+
+            </th>
+
+            @*<th>
+                    <form method="post">
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-default" name="itemChecked" />
+                        </div>
+                    </form>
+                </th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.GlobalPlantList)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FruitVariety)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Select", "Details" , new {  ID = item.ID})*@
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Origin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.YearDeveloped)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Use)
+                </td>
+
+                @*<th>
+                       <input type="checkbox" asp-for="checkedItem"  formmethod="post" asp-all-route-data="CheckItem" />
+                    </th>*@
+
+
+                <td>
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="/UserPlants/Create" asp-route-id="@item.ID">Add</a> |
+
+                </td>
+            </tr>
+
+        }
+
+    </tbody>
+
+</table>
+
+@{
+  var prevDisabled = !Model.PaginatedList.HasPreviousPage ? "disabled" : "";
+  var nextDisabled = !Model.PaginatedList.HasNextPage ? "disabled" : "";
+}
+
+<a asp-page="/GlobalPlants/Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.PaginatedList.PageIndex - 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-page="/GlobalPlants/Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.PaginatedList.PageIndex + 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>
+
+<div class="wikilink">
+    <h2 style="font-size:small"> Much of this text in this list is from the wikipedia 'List of apple cultivars'</h2>
+    <p>
+        <a class="btn btn-default" href="https://en.wikipedia.org/wiki/List_of_apple_cultivars">List of apple cutlivars</a>
+    </p>
+</div>
